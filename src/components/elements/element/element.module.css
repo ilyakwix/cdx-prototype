@@ -1,0 +1,60 @@
+.root {
+  --item-inline-padding: 16px;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 13px;
+  font-family: monospace;
+  font-weight: 500;
+}
+
+.root:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.element {
+  padding-left: 16px;
+}
+.lanesIndication {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 16px;
+  width: var(--lanes-width);
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px
+  );
+  background-size: 15px 100%;
+  background-position: 8px;
+}
+
+.html {
+  color: #1f1f1f;
+}
+.component {
+  color: #0842a0;
+}
+.expression {
+  color: #8e004b;
+}
+
+.classNamesList {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+}
+
+/* .classNamesList::before {
+  content: "classes:";
+  color: #8f8f8f;
+} */
+.classNameListItem:not(:last-child)::after {
+  content: ", ";
+  color: #8f8f8f;
+}

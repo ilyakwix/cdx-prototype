@@ -1,0 +1,45 @@
+.root {
+  --separator-border: transparent;
+  --border-color: rgba(0, 0, 0, 0.12);
+  --background-color: rgba(0, 0, 0, 0.04);
+
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+
+.main {
+  height: 100%;
+}
+
+.chatPane {
+  display: flex;
+  padding: 2px;
+}
+
+.chat {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  /* background-color: var(--background-color); */
+}
+
+.stage {
+  padding-right: 12px;
+  padding-bottom: 12px;
+}
+
+.previewPane {
+  --separator-border: var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px var(--border-color) inset;
+}
+
+.preview {
+  padding: 16px;
+  background-color: var(--background-color);
+}
+
+.drawer {
+  /* padding: 16px; */
+}
