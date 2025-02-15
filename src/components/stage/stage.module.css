@@ -1,0 +1,17 @@
+.root {
+  /* display: grid;
+  grid-template-rows: min-content 1fr;
+  height: 100%; */
+  --separator-border: var(--gray-a5);
+  --separator-border: red;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.browserBar {
+  /* --separator-border: var(--gray-a5); */
+}

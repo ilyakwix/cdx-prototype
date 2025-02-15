@@ -1,0 +1,5 @@
+/* Radix theme overrides */
+[data-is-root-theme] {
+  --cursor-button: pointer;
+  --cursor-menu-item: pointer;
+}

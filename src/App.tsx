@@ -1,33 +1,47 @@
-import { useEffect, useState } from "react";
-import { Allotment, LayoutPriority } from "allotment";
-import { Header } from "./components/header/header";
-import { Elements } from "./components/elements/elements";
-import styles from "./app.module.css";
 import "allotment/dist/style.css";
+import "@radix-ui/themes/styles.css";
+import { useState } from "react";
+import { Allotment } from "allotment";
+import { Header } from "./components/header/header";
+import { Chat } from "./components/chat/chat";
+import styles from "./app.module.css";
+import { Stage } from "./components/stage/stage";
+import { EditingDrawer } from "./components/editing-drawer/editing-drawer";
+import { SelectionDetails } from "./components/selection-details/selection-details";
+
+const scopes = ["Layout", "App", "HomePage"];
+const elements = ["div.root", "HabitList", "HabitItem"];
+const selectors = [".root"];
+const states = [
+  "default",
+  "hover",
+  "active",
+  "focus",
+  "focus-visible",
+  "focus-within",
+];
 
 export type EditorMode = "preview" | "edit" | "code";
+export type DrawerTreeTabs = "elements" | "components";
+export type DrawerSettingsTabs = "styles" | "computed" | "props";
 
 function App() {
-  // const [showLeftPanel, setShowLeftPanel] = useState(true);
   const [mode, setMode] = useState<EditorMode>("preview");
-  const [showDrawer, setShowDrawer] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(true);
+  const showStage = mode === "preview" || mode === "edit";
 
   const handleSelectMode = (selectedMode: EditorMode) => {
     setMode(selectedMode);
   };
 
-  useEffect(() => {
-    if (mode === "edit") {
-      setShowDrawer(true);
-    } else {
-      setShowDrawer(false);
-    }
-  }, [mode]);
+  const handleToggleDrawer = () => {
+    setShowDrawer((prev) => !prev);
+  };
 
   return (
     <div className={styles.root}>
       <Header mode={mode} onSelectMode={handleSelectMode} />
-      <main className={styles.main}>
+      <div className={styles.main}>
         <Allotment>
           <Allotment.Pane
             className={styles.chatPane}
@@ -36,38 +50,50 @@ function App() {
             preferredSize={500}
             snap
           >
-            <aside className={styles.chat}>Chat</aside>
+            <Chat />
           </Allotment.Pane>
-          <Allotment.Pane
-            className={styles.stage}
-            priority={LayoutPriority.High}
-          >
-            <Allotment className={styles.previewPane} vertical>
-              <Allotment.Pane className={styles.preview} minSize={150}>
-                Preview
+          <Allotment.Pane className={styles.stage}>
+            <Allotment
+              className={styles.mainAreaPane}
+              vertical
+              onVisibleChange={(index, visible) =>
+                index === 2 && setShowDrawer(visible)
+              }
+            >
+              <Allotment.Pane
+                className={styles.preview}
+                minSize={150}
+                visible={showStage}
+              >
+                <Stage />
               </Allotment.Pane>
-              {showDrawer && (
-                <Allotment.Pane
-                  className={styles.drawer}
-                  minSize={200}
-                  maxSize={700}
-                  preferredSize={400}
-                  snap
-                >
-                  <Allotment>
-                    <Allotment.Pane minSize={400}>
-                      <Elements />
-                    </Allotment.Pane>
-                    <Allotment.Pane minSize={250} preferredSize={360}>
-                      Styles
-                    </Allotment.Pane>
-                  </Allotment>
-                </Allotment.Pane>
-              )}
+              <Allotment.Pane
+                minSize={32}
+                maxSize={32}
+                preferredSize={32}
+                visible={mode === "edit"}
+              >
+                <SelectionDetails
+                  scopes={scopes}
+                  elements={elements}
+                  selectors={selectors}
+                  states={states}
+                  onToggleDrawer={handleToggleDrawer}
+                />
+              </Allotment.Pane>
+              <Allotment.Pane
+                minSize={200}
+                maxSize={700}
+                preferredSize={400}
+                snap
+                visible={mode === "edit" && showDrawer}
+              >
+                <EditingDrawer />
+              </Allotment.Pane>
             </Allotment>
           </Allotment.Pane>
         </Allotment>
-      </main>
+      </div>
     </div>
   );
 }

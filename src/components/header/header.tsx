@@ -1,10 +1,13 @@
 import { type EditorMode } from "../../App";
+import { type ReactNode } from "react";
 import { GlobeIcon } from "@radix-ui/react-icons";
-import { AppMenu } from "../app-menu/app-menu";
+import { AppMenu } from "./app-menu/app-menu";
 import {
-  ToggleGroup,
-  ToggleGroupItemProps,
-} from "../shared/toggle-group/toggle-group";
+  Button,
+  Heading,
+  SegmentedControl,
+  VisuallyHidden,
+} from "@radix-ui/themes";
 import styles from "./header.module.css";
 
 export interface HeaderProps {
@@ -13,7 +16,7 @@ export interface HeaderProps {
 }
 
 export const Header = ({ mode, onSelectMode }: HeaderProps) => {
-  const items: ToggleGroupItemProps<EditorMode>[] = [
+  const items: { id: EditorMode; label: ReactNode }[] = [
     {
       id: "preview",
       label: "Preview",
@@ -27,20 +30,31 @@ export const Header = ({ mode, onSelectMode }: HeaderProps) => {
       label: "Code",
     },
   ];
+
   return (
     <header className={styles.root}>
       <div className={styles.leftSide}>
-        <AppMenu /> my-project
+        <AppMenu />
+        <Heading className={styles.heading} size="2" truncate>
+          <VisuallyHidden>Project name: </VisuallyHidden>
+          my-project
+        </Heading>
       </div>
-      <ToggleGroup
-        items={items}
-        onValueChange={onSelectMode}
+      <SegmentedControl.Root
+        variant="classic"
         value={mode}
-      ></ToggleGroup>
-      <button className={styles.publishButton}>
+        onValueChange={(value: EditorMode) => onSelectMode(value)}
+      >
+        {items.map((item) => (
+          <SegmentedControl.Item key={item.id} value={item.id}>
+            {item.label}
+          </SegmentedControl.Item>
+        ))}
+      </SegmentedControl.Root>
+      <Button className={styles.publishButton}>
         <GlobeIcon />
         Publish
-      </button>
+      </Button>
     </header>
   );
 };

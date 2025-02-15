@@ -4,16 +4,21 @@
   position: relative;
   display: flex;
   align-items: center;
-  column-gap: 8px;
+  column-gap: 4px;
   padding-top: 2px;
   padding-bottom: 2px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-family: monospace;
   font-weight: 500;
 }
 
-.root:hover {
+.root:not(.selected):hover {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+.selected {
+  outline: none;
+  background-color: #d3e2fd;
 }
 
 .element {
@@ -43,6 +48,10 @@
 .expression {
   color: #8e004b;
 }
+.text {
+  /* color: #8f8f8f; */
+  color: #1f1f1f;
+}
 
 .classNamesList {
   display: flex;
@@ -50,11 +59,15 @@
   column-gap: 4px;
 }
 
-/* .classNamesList::before {
-  content: "classes:";
-  color: #8f8f8f;
-} */
-.classNameListItem:not(:last-child)::after {
-  content: ", ";
+.classNameListItem:before {
+  content: ".";
   color: #8f8f8f;
 }
+/* .classNameListItem:first-child:before {
+  content: "className:";
+  color: #8f8f8f;
+} */
+/* .classNameListItem:not(:last-child)::after {
+  content: ", ";
+  color: #8f8f8f;
+} */

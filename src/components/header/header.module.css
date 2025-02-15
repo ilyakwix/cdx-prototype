@@ -1,25 +1,24 @@
 .root {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  justify-items: center;
+  column-gap: var(--space-7);
   padding: 4px 12px;
 }
 
 .publishButton {
-  border: none;
-
-  display: flex;
-  column-gap: 4px;
-  border-radius: 4px;
-  padding: 8px 12px;
-  background-color: dodgerblue;
-  color: white;
-  cursor: pointer;
+  justify-self: end;
 }
 
 .leftSide {
+  justify-self: start;
   display: flex;
   align-items: center;
-  column-gap: 8px;
-  font-weight: 600;
+  column-gap: var(--space-2);
+  width: 100%;
+}
+
+.heading {
+  /* Truncate long project names */
+  max-width: 300px;
 }

@@ -1,0 +1,14 @@
+.root {
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+  resize: none;
+  padding: 12px;
+}
+
+.root:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #2673f3 inset;
+}

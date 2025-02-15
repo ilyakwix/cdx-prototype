@@ -1,0 +1,75 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 16px;
+  border-radius: 8px;
+}
+
+.prompt {
+  position: relative;
+}
+.input {
+  width: 100%;
+  padding-bottom: 48px;
+}
+
+.footnote {
+  display: block;
+  font-size: 12px;
+  text-align: center;
+  color: #8f8f8f;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 8px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 12px;
+  padding-bottom: 12px;
+}
+
+.sendButton {
+  border: none;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 999px;
+  background-color: black;
+  color: white;
+}
+
+.sendButton:not([disabled]) {
+  cursor: pointer;
+}
+.sendButton[disabled] {
+  background-color: #8f8f8f;
+  color: white;
+}
+
+.secondaryButton {
+  border: none;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 999px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.secondaryActions {
+  display: flex;
+  align-items: center;
+}

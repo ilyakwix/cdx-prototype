@@ -3,7 +3,7 @@ import { ClassNameValue } from "../class-name-value/class-name-value";
 import classNames from "classnames";
 import styles from "./element.module.css";
 
-export type ElementType = "html" | "component" | "expression";
+export type ElementType = "html" | "component" | "expression" | "text";
 
 export interface ElementProps {
   className?: string;
@@ -11,6 +11,7 @@ export interface ElementProps {
   children?: ReactNode;
   classNameValues?: string | string[];
   indent?: number;
+  selected?: boolean;
 }
 
 export const Element = ({
@@ -19,15 +20,25 @@ export const Element = ({
   children,
   classNameValues,
   indent,
+  selected,
 }: ElementProps) => {
   const renderListOfClassNames = () => {
-    if (Array.isArray(classNameValues)) {
+    if (
+      type === "text" ||
+      type === "expression" ||
+      classNameValues?.length === 0
+    ) {
+      return;
+    }
+
+    if (Array.isArray(classNameValues) && classNameValues.length > 1) {
       return classNameValues.map((item) => (
-        <ClassNameValue className={styles.classNameListItem}>
+        <ClassNameValue className={styles.classNameListItem} key={item}>
           {item}
         </ClassNameValue>
       ));
     }
+
     return (
       <ClassNameValue className={styles.classNameListItem}>
         {classNameValues}
@@ -37,18 +48,43 @@ export const Element = ({
 
   return (
     <li
-      className={classNames(styles.root, styles[type], className)}
+      className={classNames(
+        styles.root,
+        styles[type],
+        selected && styles.selected,
+        className
+      )}
       style={
         {
           paddingLeft: `calc(${indent} * 16px)`,
           "--lanes-width": `calc(${indent} * 16px)`,
         } as CSSProperties
       }
+      tabIndex={1}
     >
       <span className={styles.element}>
-        {type === "expression" ? `{` : `<`}
+        {type === "expression"
+          ? `{`
+          : type === "component" || type === "html"
+          ? `<`
+          : null}
         {children}
-        {type === "expression" ? `}` : `>`}
+        {type === "expression"
+          ? `}`
+          : type === "component" || type === "html"
+          ? `>`
+          : null}
+        {/* {type === "expression"
+          ? `{`
+          : type === "component" || type === "html"
+          ? null
+          : '"'}
+        {children}
+        {type === "expression"
+          ? `}`
+          : type === "component" || type === "html"
+          ? null
+          : '"'} */}
       </span>
       {!!classNameValues && (
         <span className={styles.classNamesList}>
