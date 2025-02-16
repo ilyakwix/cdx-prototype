@@ -25,9 +25,6 @@
   padding: var(--space-3);
 }
 
-.tabs {
-}
-
 .prompt {
   position: relative;
   border-radius: var(--radius-4);

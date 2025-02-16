@@ -1,7 +1,6 @@
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
-  ChatBubbleIcon,
   EnterFullScreenIcon,
   ExclamationTriangleIcon,
   MobileIcon,

@@ -42,7 +42,6 @@ export const Chat = ({ className }: ChatProps) => {
   return (
     <aside className={classNames(styles.root, className)}>
       <SegmentedControl.Root
-        className={styles.tabs}
         size="1"
         variant="classic"
         value={mode}
