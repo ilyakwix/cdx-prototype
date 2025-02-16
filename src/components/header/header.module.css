@@ -3,7 +3,7 @@
   grid-template-columns: 1fr min-content 1fr;
   justify-items: center;
   column-gap: var(--space-7);
-  padding: 4px 12px;
+  padding: var(--space-2) 0;
 }
 
 .publishButton {

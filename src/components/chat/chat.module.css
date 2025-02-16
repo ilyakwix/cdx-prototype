@@ -1,43 +1,69 @@
 .root {
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  row-gap: var(--space-4);
+  width: 100%;
+  height: 100%;
+  padding-right: var(--space-4);
+}
+
+.chat {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  padding-right: 16px;
-  border-radius: 8px;
+  row-gap: var(--space-2);
+  overflow: hidden;
+  padding-left: var(--space-4);
+  padding-right: var(--space-4);
+}
+
+.promptBubble {
+  background-color: var(--gray-3);
+  margin-left: var(--space-9);
+}
+.answerBubble {
+  padding: var(--space-3);
+}
+
+.tabs {
 }
 
 .prompt {
   position: relative;
+  border-radius: var(--radius-4);
+  background-color: var(--color-panel);
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-1);
 }
 .input {
-  width: 100%;
-  padding-bottom: 48px;
+  padding-bottom: var(--space-7);
 }
 
 .footnote {
   display: block;
   font-size: 12px;
   text-align: center;
-  color: #8f8f8f;
+  color: var(--gray-10);
 }
 
 .actions {
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
-  column-gap: 8px;
+  column-gap: var(--space-2);
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding-top: 4px;
-  padding-left: 4px;
-  padding-right: 12px;
-  padding-bottom: 12px;
+  padding: var(--space-1) var(--space-3) var(--space-2) var(--space-3);
 }
 
-.sendButton {
+/* .sendButton {
   border: none;
   font-family: inherit;
   display: flex;
@@ -56,20 +82,10 @@
   background-color: #8f8f8f;
   color: white;
 }
-
-.secondaryButton {
-  border: none;
-  font-family: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  border-radius: 999px;
-  background-color: transparent;
-  cursor: pointer;
-}
+ */
 
 .secondaryActions {
   display: flex;
   align-items: center;
+  column-gap: var(--space-3);
 }

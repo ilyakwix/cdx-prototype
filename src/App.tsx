@@ -41,32 +41,32 @@ function App() {
   return (
     <div className={styles.root}>
       <Header mode={mode} onSelectMode={handleSelectMode} />
-      <div className={styles.main}>
-        <Allotment>
-          <Allotment.Pane
-            className={styles.chatPane}
-            minSize={300}
-            maxSize={700}
-            preferredSize={500}
-            snap
+      <Allotment className={styles.main}>
+        <Allotment.Pane
+          className={styles.chatPane}
+          minSize={300}
+          maxSize={700}
+          preferredSize={500}
+          snap
+        >
+          <Chat />
+        </Allotment.Pane>
+        <Allotment.Pane className={styles.stage}>
+          <Allotment
+            className={styles.mainAreaPane}
+            vertical
+            onVisibleChange={(index, visible) =>
+              index === 2 && setShowDrawer(visible)
+            }
           >
-            <Chat />
-          </Allotment.Pane>
-          <Allotment.Pane className={styles.stage}>
-            <Allotment
-              className={styles.mainAreaPane}
-              vertical
-              onVisibleChange={(index, visible) =>
-                index === 2 && setShowDrawer(visible)
-              }
+            <Allotment.Pane
+              className={styles.preview}
+              minSize={150}
+              visible={showStage}
             >
-              <Allotment.Pane
-                className={styles.preview}
-                minSize={150}
-                visible={showStage}
-              >
-                <Stage />
-              </Allotment.Pane>
+              <Stage />
+            </Allotment.Pane>
+            {mode === "edit" && (
               <Allotment.Pane
                 minSize={32}
                 maxSize={32}
@@ -81,6 +81,8 @@ function App() {
                   onToggleDrawer={handleToggleDrawer}
                 />
               </Allotment.Pane>
+            )}
+            {mode === "edit" && showDrawer && (
               <Allotment.Pane
                 minSize={200}
                 maxSize={700}
@@ -90,10 +92,10 @@ function App() {
               >
                 <EditingDrawer />
               </Allotment.Pane>
-            </Allotment>
-          </Allotment.Pane>
-        </Allotment>
-      </div>
+            )}
+          </Allotment>
+        </Allotment.Pane>
+      </Allotment>
     </div>
   );
 }

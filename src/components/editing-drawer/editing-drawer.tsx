@@ -35,7 +35,8 @@ export const EditingDrawer = ({ className }: EditingDrawerProps) => {
   return (
     <Allotment
       vertical
-      minSize={100}
+      // minSize={100}
+
       className={classNames(styles.root, className)}
     >
       <Allotment.Pane

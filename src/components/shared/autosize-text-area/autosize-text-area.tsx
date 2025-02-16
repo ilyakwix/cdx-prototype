@@ -1,19 +1,21 @@
 import { useCallback, useEffect, useRef } from "react";
+import { TextArea, TextAreaProps } from "@radix-ui/themes";
 import classNames from "classnames";
-import styles from "./text-area.module.css";
+import styles from "./autosize-text-area.module.css";
 
-interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface AutosizeTextAreaProps extends TextAreaProps {
   className?: string;
   maxHeight?: number;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
 
-export const Textarea = ({
+export const AutosizeTextArea = ({
   className,
   maxHeight,
   placeholder,
+  onChange,
   ...props
-}: TextareaProps) => {
+}: AutosizeTextAreaProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const adjustHeight = useCallback(() => {
@@ -29,8 +31,8 @@ export const Textarea = ({
   }, [maxHeight]);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (props.onChange) {
-      props.onChange(event);
+    if (onChange) {
+      onChange(event);
     }
     adjustHeight();
   };
@@ -40,7 +42,7 @@ export const Textarea = ({
   }, [adjustHeight, maxHeight]);
 
   return (
-    <textarea
+    <TextArea
       {...props}
       ref={textareaRef}
       onChange={handleChange}

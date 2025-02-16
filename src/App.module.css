@@ -4,13 +4,13 @@
   height: 100dvh;
   display: grid;
   grid-template-rows: min-content 1fr;
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+  padding-bottom: var(--space-3);
 }
 
 .main {
   height: 100%;
-  padding-left: var(--space-3);
-  padding-right: var(--space-3);
-  padding-bottom: var(--space-3);
 }
 
 .chatPane {
@@ -18,7 +18,7 @@
 }
 
 .mainAreaPane {
-  border-radius: 8px;
+  border-radius: var(--radius-4);
   border: 1px solid var(--gray-a5);
 }
 

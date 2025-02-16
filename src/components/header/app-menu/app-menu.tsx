@@ -4,7 +4,7 @@ export const AppMenu = () => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <Button size="1" variant="ghost">
+        <Button size="1" variant="ghost" color="gray">
           <svg width="22" fill="none" viewBox="0 0 22 23">
             <path
               fill="#495AEF"

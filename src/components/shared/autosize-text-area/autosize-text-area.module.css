@@ -1,0 +1,14 @@
+.root {
+  outline-offset: -2px;
+  border-radius: var(--radius-4);
+  background-color: transparent;
+}
+
+.root > textarea {
+  --text-area-padding-y: calc(
+    var(--space-2) * 1.5 - var(--text-area-border-width)
+  );
+  --text-area-padding-x: calc(var(--space-3) - var(--text-area-border-width));
+  font-size: var(--font-size-3);
+  background-color: transparent;
+}
