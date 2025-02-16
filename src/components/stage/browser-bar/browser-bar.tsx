@@ -1,7 +1,9 @@
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
+  ChatBubbleIcon,
   EnterFullScreenIcon,
+  ExclamationTriangleIcon,
   MobileIcon,
   ReloadIcon,
 } from "@radix-ui/react-icons";
@@ -60,6 +62,11 @@ export const BrowserBar = ({ className, onReload }: BrowserBarProps) => {
         />
 
         <div className={styles.actions}>
+          <Tooltip content="Logs">
+            <IconButton size="1" variant="ghost">
+              <ExclamationTriangleIcon />
+            </IconButton>
+          </Tooltip>
           <Tooltip content="Responsive mode">
             <IconButton size="1" variant="ghost">
               <MobileIcon />
