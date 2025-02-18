@@ -1,2 +1,252 @@
 .root {
 }
+
+/* .tree {
+  padding-left: 40px;
+}
+
+.row {
+  padding-left: 16px;
+}
+
+.node {
+}
+.root [role="treeitem"]:hover {
+  background-color: var(--gray-3);
+}
+
+.root [role="treeitem"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--accent-10) inset;
+  border-radius: 0;
+}
+
+.root [role="treeitem"][aria-selected="true"] {
+  background-color: var(--accent-5);
+}
+
+.selection {
+  position: absolute;
+  height: 15px;
+  width: 100%;
+} */
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.split {
+  display: flex;
+}
+
+.treeContainer {
+  display: flex;
+  /* height: 100vh; */
+  flex: 1;
+  min-width: 0;
+}
+
+.tree {
+}
+
+.tree:hover .indentLines {
+  display: flex;
+}
+
+.contentContainer {
+  flex: 2;
+  padding: 50px;
+  /* height: 100vh; */
+  overflow-y: auto;
+}
+
+.contentContainer section {
+  /* margin-bottom: 25px; */
+}
+
+.contentContainer button {
+  /* color: white; */
+  /* background: rgb(20, 127, 250); */
+  background-color: var(--accent-5);
+  border: none;
+  /* box-shadow: 1px 1px 0 rgb(12, 105, 211), 2px 2px 0 rgb(12, 105, 211),
+    3px 3px 0 rgb(12, 105, 211), 4px 4px 0 rgb(12, 105, 211),
+    5px 5px 0 rgb(12, 105, 211); */
+  /* font-size: 20px; */
+  /* padding: 10px; */
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.contentContainer button:active {
+  background: rgb(12, 105, 211);
+  box-shadow: none;
+  position: relative;
+  top: 3px;
+  left: 3px;
+}
+
+/* .contentContainer input {
+  border: 2px solid rgb(12, 105, 211);
+  box-shadow: 1px 1px 0 rgb(12, 105, 211), 2px 2px 0 rgb(12, 105, 211),
+    3px 3px 0 rgb(12, 105, 211), 4px 4px 0 rgb(12, 105, 211),
+    5px 5px 0 rgb(12, 105, 211);
+  font-size: 20px;
+  padding: 10px;
+} */
+
+/* .contentContainer label,
+.contentContainer button,
+.contentContainer input {
+  display: block;
+  margin: 10px 0;
+} */
+
+/* .statsgrid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+} */
+
+/* .infobox {
+  width: 200px;
+  height: 100px;
+  background: rgb(20, 127, 250);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(179, 211, 249);
+  box-shadow: 1px 1px 0 rgb(12, 105, 211), 2px 2px 0 rgb(12, 105, 211),
+    3px 3px 0 rgb(12, 105, 211), 4px 4px 0 rgb(12, 105, 211),
+    5px 5px 0 rgb(12, 105, 211);
+} */
+
+/* .stat {
+  color: white;
+  text-shadow: 0 1px 1px rgb(0 0 0 /0.4);
+  font-size: 30px;
+  justify-self: center;
+  margin: auto 0;
+  padding: 5px;
+  text-align: center;
+} */
+
+/* .row {
+  white-space: nowrap;
+  cursor: pointer;
+} */
+
+.node {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  /* margin: 0 20px; */
+}
+
+.node:global(.willReceiveDrop) {
+  background-color: var(--gray-a3);
+}
+
+.node:global(.isSelected) {
+  /* background-color: var(--accent-a5); */
+  background-color: var(--gray-a3);
+  border-radius: 0;
+}
+
+.node:global(.isSelectedStart) {
+  /* border-radius: 8px 8px 0 0; */
+}
+
+.node:global(.isSelectedEnd) {
+  /* border-radius: 0 0 8px 8px; */
+}
+
+.node:global(.isSelectedStart.isSelectedEnd) {
+  /* border-radius: 8px; */
+}
+
+.indentLines {
+  --indent-size: 15px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  display: none;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.indentLines > div {
+  height: 100%;
+  padding-left: 10px;
+  border-right: 1px solid var(--gray-a4);
+  margin-right: calc(var(--indent-size) - 10px - 1px);
+}
+
+.row:focus {
+  background-color: var(--accent-5);
+  outline: none;
+}
+
+.row:focus .node {
+  /* background-color: var(--accent-a3); */
+  /* background-color: yellow; */
+}
+
+.row:focus .node:global(.isSelected) {
+  background-color: var(--accent-5);
+}
+
+.icon {
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+
+.text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.node:global(.isInternal) {
+  cursor: pointer;
+}
+
+.arrow {
+  display: flex;
+  /* font-size: 20px; */
+}
+
+.emptyArrow {
+  width: 15px;
+  height: 15px;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 20px;
+}
+
+.mobileWarning {
+  background: var(--primaryColor);
+  color: white;
+  padding: 1em;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 4px;
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tree {
+    background: #101010;
+  }
+
+  .row:focus-visible .node {
+    color: black;
+  }
+}
