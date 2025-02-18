@@ -1,5 +1,6 @@
 .root {
   --separator-border: transparent;
+  --focus-border: var(--accent-indicator);
 
   height: 100dvh;
   display: grid;
