@@ -1,58 +1,21 @@
 import { NodeApi, NodeRendererProps, Tree, TreeApi } from "react-arborist";
-import classNames from "classnames";
-import styles from "./source-tree.module.css";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
   FileIcon,
 } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
-import { IconButton } from "@radix-ui/themes";
-
-type Data = { id: string; name: string; children?: Data[] };
-
-const data = [
-  {
-    id: "root",
-    name: "div",
-    children: [
-      {
-        id: "header",
-        name: "header",
-        children: [
-          {
-            id: "mainHeading",
-            name: "h1",
-            children: [{ id: "mainHeadingText", name: "Daily Habits" }],
-          },
-          {
-            id: "subtitle",
-            name: "span",
-            children: [
-              { id: "subtitleText", name: "Sunday, February 16, 2025" },
-            ],
-          },
-        ],
-      },
-      {
-        id: "listOfHabits",
-        name: "HabitsList",
-        children: [
-          { id: "habit1", name: "HabitItem" },
-          { id: "habit2", name: "HabitItem" },
-          { id: "habit3", name: "HabitItem" },
-        ],
-      },
-    ],
-  },
-];
+import { Code, IconButton, TextField } from "@radix-ui/themes";
+import classNames from "classnames";
+import styles from "./source-tree.module.css";
+import { SouceTreeData, souceTreeData } from "./source-tree-data";
 
 export interface SourceTreeProps {
   className?: string;
 }
 
-const sortedData = sortData(data);
-const INDENT_STEP = 15;
+const sortedData = sortData(souceTreeData);
+const INDENT_STEP = 16;
 
 export const SourceTree = ({ className }: SourceTreeProps) => {
   const [tree, setTree] = useState<TreeApi<Data> | null | undefined>(null);
@@ -61,7 +24,7 @@ export const SourceTree = ({ className }: SourceTreeProps) => {
   const [selectedCount, setSelectedCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [count, setCount] = useState(0);
-  const [followsFocus, setFollowsFocus] = useState(false);
+  const [followsFocus, setFollowsFocus] = useState(true);
   const [disableMulti, setDisableMulti] = useState(false);
 
   useEffect(() => {
@@ -92,9 +55,9 @@ export const SourceTree = ({ className }: SourceTreeProps) => {
         selection={active?.id}
         className={styles.tree}
         rowClassName={styles.row}
-        padding={16}
+        padding={4}
         width="100%"
-        rowHeight={24}
+        rowHeight={20}
         indent={INDENT_STEP}
         overscanCount={8}
         onSelect={(selected) => setSelectedCount(selected.length)}
@@ -112,8 +75,8 @@ export const SourceTree = ({ className }: SourceTreeProps) => {
   );
 };
 
-function Node({ node, style, dragHandle }: NodeRendererProps<Data>) {
-  const Icon = FileIcon;
+function Node({ node, style, dragHandle }: NodeRendererProps<SouceTreeData>) {
+  // const Icon = FileIcon;
   const indentSize = Number.parseFloat(`${style.paddingLeft || 0}`);
 
   return (
@@ -128,26 +91,36 @@ function Node({ node, style, dragHandle }: NodeRendererProps<Data>) {
         })}
       </div>
       <IconButton
+        className={styles.arrowButton}
         variant="ghost"
         color="gray"
         onClick={() => node.isInternal && node.toggle()}
+        disabled={!node.isInternal}
       >
         <FolderArrow node={node} />
       </IconButton>
-      <Icon className={styles.icon} />
+      {/* <Icon className={styles.icon} /> */}
       <span className={styles.text}>
-        {node.isEditing ? <Input node={node} /> : node.data.name}
+        {node.isEditing ? (
+          <EditingInput node={node} />
+        ) : (
+          <Code size="2" variant="ghost">
+            {node.data.name}
+          </Code>
+        )}
       </span>
     </div>
   );
 }
 
-function Input({ node }: { node: NodeApi<Data> }) {
+function EditingInput({ node }: { node: NodeApi<SouceTreeData> }) {
   return (
-    <input
+    <TextField.Root
+      className={styles.nameInput}
+      variant="classic"
+      size="1"
       autoFocus
       name="name"
-      type="text"
       defaultValue={node.data.name}
       onFocus={(e) => e.currentTarget.select()}
       onBlur={() => node.reset()}
@@ -159,8 +132,8 @@ function Input({ node }: { node: NodeApi<Data> }) {
   );
 }
 
-function sortData(data: Data[]) {
-  function sortIt(data: Data[]) {
+function sortData(data: SouceTreeData[]) {
+  function sortIt(data: SouceTreeData[]) {
     // data.sort((a, b) => (a.name < b.name ? -1 : 1));
     // data.forEach((d) => {
     //   if (d.children) sortIt(d.children);
@@ -170,7 +143,7 @@ function sortData(data: Data[]) {
   return sortIt(data);
 }
 
-function FolderArrow({ node }: { node: NodeApi<Data> }) {
+function FolderArrow({ node }: { node: NodeApi<SouceTreeData> }) {
   return (
     <span className={styles.arrow}>
       {node.isInternal ? (

@@ -1,3 +1,15 @@
 .root {
   --separator-border: var(--gray-a5);
 }
+
+.tabs {
+  height: 100%;
+}
+
+.tabsContent {
+  height: 100%;
+}
+
+.treePane {
+  height: 100%;
+}

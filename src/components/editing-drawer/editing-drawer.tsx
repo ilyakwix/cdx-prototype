@@ -1,5 +1,5 @@
 import { Allotment } from "allotment";
-import { Tabs } from "@radix-ui/themes";
+import { ScrollArea, Tabs } from "@radix-ui/themes";
 import { SourceTree } from "./source-tree/source-tree";
 import { ElementsTree } from "./elements-tree/elements-tree";
 import classNames from "classnames";
@@ -48,21 +48,26 @@ export const EditingDrawer = ({ className }: EditingDrawerProps) => {
       >
         <Allotment>
           <Allotment.Pane minSize={400}>
-            <Tabs.Root defaultValue="source">
-              <Tabs.List>
-                <Tabs.Trigger value="source">Source</Tabs.Trigger>
-                <Tabs.Trigger value="elements">Elements</Tabs.Trigger>
-              </Tabs.List>
+            <Tabs.Root defaultValue="source" className={styles.tabs}>
+              <Allotment vertical className={styles.treePane} separator={false}>
+                <Allotment.Pane minSize={32} maxSize={32}>
+                  <Tabs.List size="1">
+                    <Tabs.Trigger value="source">Source</Tabs.Trigger>
+                    <Tabs.Trigger value="elements">Elements</Tabs.Trigger>
+                  </Tabs.List>
+                </Allotment.Pane>
+                <Allotment.Pane>
+                  <Tabs.Content value="source" className={styles.tabsContent}>
+                    <ScrollArea>
+                      <SourceTree />
+                    </ScrollArea>
+                  </Tabs.Content>
 
-              <div>
-                <Tabs.Content value="source">
-                  <SourceTree />
-                </Tabs.Content>
-
-                <Tabs.Content value="elements">
-                  <ElementsTree />
-                </Tabs.Content>
-              </div>
+                  <Tabs.Content value="elements" className={styles.tabsContent}>
+                    <ElementsTree />
+                  </Tabs.Content>
+                </Allotment.Pane>
+              </Allotment>
             </Tabs.Root>
             {/* <Tabs
               className={styles.drawerTabs}
