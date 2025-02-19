@@ -1,31 +1,29 @@
 import { Allotment } from "allotment";
-import { ScrollArea, Tabs } from "@radix-ui/themes";
+import { Tabs } from "@radix-ui/themes";
 import { SourceTree } from "./source-tree/source-tree";
 import { ElementsTree } from "./elements-tree/elements-tree";
+import { StylePanel } from "./style-panel/style-panel";
+import { ComputedStylesPanel } from "./computed-styles-panel/computed-styles-panel";
+import { PropsPanel } from "./props-panel/props-panel";
+import { DrawerSettingsTabs, DrawerTreeTabs } from "../../App";
 import classNames from "classnames";
 import styles from "./editing-drawer.module.css";
 
-// const drawerTreeTabs: TabProps<DrawerTreeTabs>[] = [
-//   { id: "elements", label: "Elements" },
-//   { id: "components", label: "Components" },
-// ];
-// const drawerTreeTabsContent: TabContentProps<DrawerTreeTabs>[] = [
-//   { id: "elements", content: <Elements /> },
-//   {
-//     id: "components",
-//     content: <Components />,
-//   },
-// ];
-// const drawerSettingsTabs: TabProps<DrawerSettingsTabs>[] = [
-//   { id: "styles", label: "Styles" },
-//   { id: "computed", label: "Computed" },
-//   { id: "props", label: "Props" },
-// ];
-// const drawerSettingsTabsContent: TabContentProps<DrawerSettingsTabs>[] = [
-//   { id: "styles", content: <div></div> },
-//   { id: "computed", content: <div></div> },
-//   { id: "props", content: <div></div> },
-// ];
+interface TabProps<T> {
+  id: T;
+  label: string;
+}
+
+const treeTabs: TabProps<DrawerTreeTabs>[] = [
+  { id: "source", label: "Source" },
+  { id: "elements", label: "Elements" },
+];
+
+const settingsTabs: TabProps<DrawerSettingsTabs>[] = [
+  { id: "styles", label: "Styles" },
+  { id: "computed", label: "Computed" },
+  { id: "props", label: "Props" },
+];
 
 export interface EditingDrawerProps {
   className?: string;
@@ -52,15 +50,16 @@ export const EditingDrawer = ({ className }: EditingDrawerProps) => {
               <Allotment vertical className={styles.treePane} separator={false}>
                 <Allotment.Pane minSize={32} maxSize={32}>
                   <Tabs.List size="1">
-                    <Tabs.Trigger value="source">Source</Tabs.Trigger>
-                    <Tabs.Trigger value="elements">Elements</Tabs.Trigger>
+                    {treeTabs.map((tab) => (
+                      <Tabs.Trigger key={tab.id} value={tab.id}>
+                        {tab.label}
+                      </Tabs.Trigger>
+                    ))}
                   </Tabs.List>
                 </Allotment.Pane>
                 <Allotment.Pane>
                   <Tabs.Content value="source" className={styles.tabsContent}>
-                    <ScrollArea>
-                      <SourceTree />
-                    </ScrollArea>
+                    <SourceTree />
                   </Tabs.Content>
 
                   <Tabs.Content value="elements" className={styles.tabsContent}>
@@ -69,14 +68,32 @@ export const EditingDrawer = ({ className }: EditingDrawerProps) => {
                 </Allotment.Pane>
               </Allotment>
             </Tabs.Root>
-            {/* <Tabs
-              className={styles.drawerTabs}
-              tabs={drawerTreeTabs}
-              content={drawerTreeTabsContent}
-              defaultValue="components"
-            /> */}
           </Allotment.Pane>
           <Allotment.Pane minSize={250} preferredSize={360}>
+            <Tabs.Root defaultValue="styles" className={styles.tabs}>
+              <Allotment vertical className={styles.treePane} separator={false}>
+                <Allotment.Pane minSize={32} maxSize={32}>
+                  <Tabs.List size="1">
+                    {settingsTabs.map((tab) => (
+                      <Tabs.Trigger key={tab.id} value={tab.id}>
+                        {tab.label}
+                      </Tabs.Trigger>
+                    ))}
+                  </Tabs.List>
+                </Allotment.Pane>
+                <Allotment.Pane>
+                  <Tabs.Content value="styles" className={styles.tabsContent}>
+                    <StylePanel />
+                  </Tabs.Content>
+                  <Tabs.Content value="computed" className={styles.tabsContent}>
+                    <ComputedStylesPanel />
+                  </Tabs.Content>
+                  <Tabs.Content value="props" className={styles.tabsContent}>
+                    <PropsPanel />
+                  </Tabs.Content>
+                </Allotment.Pane>
+              </Allotment>
+            </Tabs.Root>
             {/* <Tabs
               className={styles.drawerTabs}
               tabs={drawerSettingsTabs}

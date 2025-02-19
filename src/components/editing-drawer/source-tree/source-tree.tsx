@@ -2,10 +2,10 @@ import { NodeApi, NodeRendererProps, Tree, TreeApi } from "react-arborist";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
-  FileIcon,
+  // FileIcon,
 } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
-import { Code, IconButton, TextField } from "@radix-ui/themes";
+import { Code, IconButton, ScrollArea, TextField } from "@radix-ui/themes";
 import classNames from "classnames";
 import styles from "./source-tree.module.css";
 import { SouceTreeData, souceTreeData } from "./source-tree-data";
@@ -32,46 +32,36 @@ export const SourceTree = ({ className }: SourceTreeProps) => {
   }, [tree, searchTerm]);
 
   return (
-    <div className={classNames(styles.root, className)}>
-      {/* <Tree
-        initialData={elementsData}
-        width="100%"
-        padding={8}
-        indent={24}
-        className={styles.tree}
-        rowClassName={styles.row}
-        renderCursor={Selection}
-      >
-        {Node}
-      </Tree> */}
-
-      <Tree
-        initialData={sortedData}
-        selectionFollowsFocus={followsFocus}
-        disableMultiSelection={disableMulti}
-        ref={(t) => setTree(t)}
-        openByDefault={true}
-        searchTerm={searchTerm}
-        selection={active?.id}
-        className={styles.tree}
-        rowClassName={styles.row}
-        padding={4}
-        width="100%"
-        rowHeight={20}
-        indent={INDENT_STEP}
-        overscanCount={8}
-        onSelect={(selected) => setSelectedCount(selected.length)}
-        onActivate={(node) => setActive(node.data)}
-        onFocus={(node) => setFocused(node.data)}
-        onToggle={() => {
-          setTimeout(() => {
-            setCount(tree?.visibleNodes.length ?? 0);
-          });
-        }}
-      >
-        {Node}
-      </Tree>
-    </div>
+    <ScrollArea>
+      <div className={classNames(styles.root, className)}>
+        <Tree
+          initialData={sortedData}
+          selectionFollowsFocus={followsFocus}
+          disableMultiSelection={disableMulti}
+          ref={(t) => setTree(t)}
+          openByDefault={true}
+          searchTerm={searchTerm}
+          selection={active?.id}
+          className={styles.tree}
+          rowClassName={styles.row}
+          padding={4}
+          width="100%"
+          rowHeight={20}
+          indent={INDENT_STEP}
+          overscanCount={8}
+          onSelect={(selected) => setSelectedCount(selected.length)}
+          onActivate={(node) => setActive(node.data)}
+          onFocus={(node) => setFocused(node.data)}
+          onToggle={() => {
+            setTimeout(() => {
+              setCount(tree?.visibleNodes.length ?? 0);
+            });
+          }}
+        >
+          {Node}
+        </Tree>
+      </div>
+    </ScrollArea>
   );
 };
 

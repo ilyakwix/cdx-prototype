@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import styles from "./elements-tree.module.css";
+import { ScrollArea } from "@radix-ui/themes";
 
 export interface ElementsTreeProps {
   className?: string;
@@ -7,6 +8,8 @@ export interface ElementsTreeProps {
 
 export const ElementsTree = ({ className }: ElementsTreeProps) => {
   return (
-    <div className={classNames(styles.root, className)}>Elements Tree</div>
+    <ScrollArea>
+      <div className={classNames(styles.root, className)}>Elements Tree</div>
+    </ScrollArea>
   );
 };

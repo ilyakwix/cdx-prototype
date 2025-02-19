@@ -22,7 +22,7 @@ const states = [
 ];
 
 export type EditorMode = "preview" | "edit" | "code";
-export type DrawerTreeTabs = "elements" | "components";
+export type DrawerTreeTabs = "elements" | "source";
 export type DrawerSettingsTabs = "styles" | "computed" | "props";
 
 function App() {
