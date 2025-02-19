@@ -47,10 +47,14 @@ export const Chat = ({ className }: ChatProps) => {
         value={mode}
         onValueChange={(value: ChatMode) => setMode(value)}
       >
-        <SegmentedControl.Item key="chat" value="chat">
+        <SegmentedControl.Item key="chat" value="chat" className={styles.tab}>
           Chat
         </SegmentedControl.Item>
-        <SegmentedControl.Item key="history" value="history">
+        <SegmentedControl.Item
+          key="history"
+          value="history"
+          className={styles.tab}
+        >
           History
         </SegmentedControl.Item>
       </SegmentedControl.Root>

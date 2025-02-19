@@ -7,6 +7,10 @@
   padding-right: var(--space-4);
 }
 
+.tab:focus {
+  outline-offset: -2px;
+}
+
 .chat {
   width: 100%;
   display: flex;
@@ -59,28 +63,6 @@
   right: 0;
   padding: var(--space-1) var(--space-3) var(--space-2) var(--space-3);
 }
-
-/* .sendButton {
-  border: none;
-  font-family: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  border-radius: 999px;
-  background-color: black;
-  color: white;
-}
-
-.sendButton:not([disabled]) {
-  cursor: pointer;
-}
-.sendButton[disabled] {
-  background-color: #8f8f8f;
-  color: white;
-}
- */
-
 .secondaryActions {
   display: flex;
   align-items: center;
