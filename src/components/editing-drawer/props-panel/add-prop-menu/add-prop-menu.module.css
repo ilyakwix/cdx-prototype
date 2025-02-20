@@ -1,2 +1,9 @@
 .root {
 }
+
+.interfaceLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--space-5);
+}
