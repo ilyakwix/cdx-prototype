@@ -7,7 +7,7 @@ import {
   Theme,
   Tooltip,
 } from "@radix-ui/themes";
-import { ViewHorizontalIcon } from "@radix-ui/react-icons";
+import { Crosshair2Icon, ViewHorizontalIcon } from "@radix-ui/react-icons";
 import classNames from "classnames";
 import styles from "./selection-details.module.css";
 
@@ -31,6 +31,21 @@ export const SelectionDetails = ({
   return (
     <div className={classNames(styles.root, className)}>
       <div className={styles.selectionDetails}>
+        <Tooltip
+          content={
+            <Text>
+              Select element
+              <Kbd size="1" className={styles.shortcut}>
+                ⌘ ⇧ C
+              </Kbd>
+            </Text>
+          }
+        >
+          <IconButton size="1" variant="ghost" color="gray">
+            <Crosshair2Icon />
+          </IconButton>
+        </Tooltip>
+
         <Toolbar.Root className={styles.selectionDetails}>
           <Text as="label" size="2" className={styles.label}>
             Scope

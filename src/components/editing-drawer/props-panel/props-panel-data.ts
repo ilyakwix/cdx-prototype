@@ -55,11 +55,6 @@ export const reactNodeSuggestions = [
     description: "Default slot for nested elements",
   },
   {
-    value: "comments.map(comment => comment.text)",
-    type: "array<string>",
-    description: "List of comment texts",
-  },
-  {
     value: "content",
     type: "string",
     description: "Rich text content from CMS",
@@ -75,77 +70,13 @@ export const reactNodeSuggestions = [
     description: "Detailed description of the component",
   },
   {
-    value: "document",
-    type: "{ id: string; content: string; metadata: Record<string, unknown> }",
-    description: "Document data structure",
-  },
-  {
-    value: "formData",
-    type: "Record<string, string | number | boolean>",
-    description: "Form input values mapped by field name",
-  },
-  {
     value: "habit.type",
     type: "HabitTypes | 'task' | 'reminder'",
     description: "Type of habit-related entry",
   },
   {
-    value: "items.map(item => item.name)",
-    type: "array<string>",
-    description: "List of item names",
-  },
-  {
-    value: "messages.map(msg => msg.content)",
-    type: "array<string>",
-    description: "Chat message contents",
-  },
-  {
-    value: "notifications",
-    type: "Array<{ id: string; message: string }>",
-    description: "List of user notifications",
-  },
-  { value: "post.body", type: "string", description: "Blog post content" },
-  {
-    value: "selectedProduct?.name",
-    type: "string | undefined",
-    description: "Name of selected product",
-  },
-  {
-    value: "settings",
-    type: "{ darkMode: boolean; language: 'en' | 'es' | 'fr' }",
-    description: "App settings object",
-  },
-  {
-    value: "tableData",
-    type: "Array<{ column: string; value: string | number }>",
-    description: "Structured table data",
-  },
-  {
-    value: "tasks",
-    type: "Array<{ id: number; title: string; completed: boolean }>",
-    description: "List of user tasks",
-  },
-  {
-    value: "theme",
-    type: "'light' | 'dark' | 'system'",
-    description: "Theme mode selection",
-  },
-  { value: "title", type: "string", description: "Main title text" },
-  { value: "user.bio", type: "string", description: "User's biography text" },
-  { value: "user.name", type: "string", description: "Logged-in user's name" },
-  {
-    value: "user.permissions",
-    type: "Array<'read' | 'write' | 'admin'>",
-    description: "User access permissions",
-  },
-  {
     value: "user.preferences.theme",
     type: "string",
     description: "User's selected theme",
-  },
-  {
-    value: "user.profile",
-    type: "{ name: string; age: number; avatarUrl: string }",
-    description: "User profile object",
   },
 ];

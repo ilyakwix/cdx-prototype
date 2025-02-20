@@ -154,11 +154,11 @@
 }
 
 .indentLines {
-  --indent-size: 15px;
+  --indent-size: 16px;
 
   position: absolute;
   top: 0;
-  left: 0;
+  left: var(--space-3);
   z-index: -1;
   display: none;
   align-items: flex-start;
@@ -195,9 +195,26 @@
 
 .text {
   flex: 1;
+  display: flex;
+  align-items: center;
+  column-gap: 1ch;
   overflow: hidden;
   text-overflow: ellipsis;
   padding-left: var(--space-1);
+}
+
+.classNames {
+  display: flex;
+  align-items: center;
+}
+
+.className {
+  font-style: italic;
+}
+
+.className:not(:last-child):after {
+  content: ",";
+  margin-right: 1ch;
 }
 
 .node:global(.isInternal) {

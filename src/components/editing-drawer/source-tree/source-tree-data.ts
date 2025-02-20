@@ -11,6 +11,7 @@ export type SourceTreeData = {
   children?: SourceTreeData[];
   prop?: string;
   propType?: string;
+  classNames?: string[];
 };
 
 export const sourceTreeData: SourceTreeData[] = [
@@ -18,16 +19,19 @@ export const sourceTreeData: SourceTreeData[] = [
     id: "root",
     value: "div",
     type: "element",
+    classNames: ["root"],
     children: [
       {
         id: "header",
         value: "header",
         type: "element",
+        classNames: ["header"],
         children: [
           {
             id: "mainHeading",
             value: "h1",
             type: "element",
+            classNames: ["heading", "headingLarge"],
             children: [
               { id: "mainHeadingText", value: "Daily Habits", type: "text" },
             ],
@@ -51,6 +55,7 @@ export const sourceTreeData: SourceTreeData[] = [
         id: "listOfHabits",
         value: "HabitsList",
         type: "component",
+        classNames: ["habitsList"],
         children: [
           {
             id: "HabitsListMap",

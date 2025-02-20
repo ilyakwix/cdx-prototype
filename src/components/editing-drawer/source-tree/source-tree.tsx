@@ -1,13 +1,21 @@
 import { NodeApi, NodeRendererProps, Tree, TreeApi } from "react-arborist";
 import {
+  CodeIcon,
   DotIcon,
+  LoopIcon,
+  MagicWandIcon,
+  MixerHorizontalIcon,
+  OpacityIcon,
+  Pencil1Icon,
+  Pencil2Icon,
+  TrashIcon,
   TriangleDownIcon,
   TriangleRightIcon,
-  // FileIcon,
 } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 import {
   Code,
+  ContextMenu,
   IconButton,
   ScrollArea,
   TextField,
@@ -18,9 +26,9 @@ import {
   sourceTreeData,
   SourceTreeNodeType,
 } from "./source-tree-data";
-import { accentColorPropDef } from "@radix-ui/themes/props";
 import classNames from "classnames";
 import styles from "./source-tree.module.css";
+import { ThemeColors } from "../types";
 
 export interface SourceTreeProps {
   className?: string;
@@ -29,10 +37,7 @@ export interface SourceTreeProps {
 const sortedData = sortData(sourceTreeData);
 const INDENT_STEP = 16;
 
-const nodeTypeColors: Record<
-  SourceTreeNodeType,
-  typeof accentColorPropDef.color.default | undefined
-> = {
+const nodeTypeColors: Record<SourceTreeNodeType, ThemeColors | undefined> = {
   element: undefined,
   component: "indigo",
   expression: "plum",
@@ -94,46 +99,73 @@ function Node({ node, style, dragHandle }: NodeRendererProps<SourceTreeData>) {
   const indentSize = Number.parseFloat(`${style.paddingLeft || 0}`);
 
   return (
-    <div
-      ref={dragHandle}
-      style={style}
-      className={classNames(styles.node, node.state)}
-    >
-      <div className={styles.indentLines}>
-        {new Array(indentSize / INDENT_STEP).fill(0).map((_, index) => {
-          return <div key={index}></div>;
-        })}
-      </div>
-      <IconButton
-        className={styles.arrowButton}
-        variant="ghost"
-        color="gray"
-        onClick={() => node.isInternal && node.toggle()}
-        disabled={!node.isInternal}
-      >
-        <FolderArrow node={node} />
-      </IconButton>
-      {/* <Icon className={styles.icon} /> */}
-      {node.data.prop && (
-        <span>
-          <Tooltip content={node.data.propType} side="left">
-            <Code size="2" variant="ghost" color="plum">
-              {node.data.prop}
-              {": "}
-            </Code>
-          </Tooltip>
-        </span>
-      )}
-      <span className={styles.text}>
-        {node.isEditing ? (
-          <EditingInput node={node} />
-        ) : (
-          <Code size="2" variant="ghost" color={nodeTypeColors[node.data.type]}>
-            {node.data.value}
-          </Code>
-        )}
-      </span>
-    </div>
+    <ContextMenu.Root>
+      <ContextMenu.Trigger>
+        {/* <RightClickZone style={{ height: 150 }} /> */}
+        <div
+          ref={dragHandle}
+          style={style}
+          className={classNames(styles.node, node.state)}
+        >
+          <div className={styles.indentLines}>
+            {new Array(indentSize / INDENT_STEP).fill(0).map((_, index) => {
+              return <div key={index}></div>;
+            })}
+          </div>
+          <IconButton
+            className={styles.arrowButton}
+            variant="ghost"
+            color="gray"
+            onClick={() => node.isInternal && node.toggle()}
+            disabled={!node.isInternal}
+          >
+            <FolderArrow node={node} />
+          </IconButton>
+          {/* <Icon className={styles.icon} /> */}
+
+          <span className={styles.text}>
+            {node.data.prop && (
+              <Tooltip content={node.data.propType} side="left">
+                <Code size="2" variant="ghost" color="gray">
+                  {node.data.prop}
+                  {": "}
+                </Code>
+              </Tooltip>
+            )}
+            {node.isEditing ? (
+              <EditingInput node={node} />
+            ) : (
+              <Code
+                size="2"
+                variant="ghost"
+                color={nodeTypeColors[node.data.type]}
+              >
+                {node.data.value}
+              </Code>
+            )}
+            {node.data.classNames && (
+              <span className={styles.classNames}>
+                {node.data.classNames.map((item, index) => (
+                  <Code
+                    className={styles.className}
+                    key={index}
+                    size="2"
+                    variant="ghost"
+                    color="gray"
+                  >
+                    {item}
+                  </Code>
+                ))}
+              </span>
+            )}
+          </span>
+        </div>
+      </ContextMenu.Trigger>
+      {node.data.type === "element" && elementContextMenu}
+      {node.data.type === "component" && componentContextMenu}
+      {node.data.type === "expression" && expressionContextMenu}
+      {node.data.type === "text" && textContextMenu}
+    </ContextMenu.Root>
   );
 }
 
@@ -183,3 +215,133 @@ function FolderArrow({ node }: { node: NodeApi<SourceTreeData> }) {
     </span>
   );
 }
+
+const elementContextMenu = (
+  <ContextMenu.Content>
+    <ContextMenu.Item>
+      <Pencil2Icon />
+      Manage classes
+    </ContextMenu.Item>
+    <ContextMenu.Item>
+      <MagicWandIcon />
+      Ask AI
+    </ContextMenu.Item>
+    <ContextMenu.Sub>
+      <ContextMenu.SubTrigger>
+        <LoopIcon />
+        Swap element
+      </ContextMenu.SubTrigger>
+      <ContextMenu.SubContent>
+        <ContextMenu.Item>Div</ContextMenu.Item>
+        <ContextMenu.Item>Span</ContextMenu.Item>
+        <ContextMenu.Separator />
+        <ContextMenu.Item>Section</ContextMenu.Item>
+        <ContextMenu.Item>Main</ContextMenu.Item>
+        <ContextMenu.Item>Aside</ContextMenu.Item>
+        <ContextMenu.Item>Header</ContextMenu.Item>
+        <ContextMenu.Item>Footer</ContextMenu.Item>
+        <ContextMenu.Separator />
+        <ContextMenu.Item>More options…</ContextMenu.Item>
+      </ContextMenu.SubContent>
+    </ContextMenu.Sub>
+    <ContextMenu.Separator />
+    <ContextMenu.Item>
+      <OpacityIcon />
+      Show styles
+    </ContextMenu.Item>
+    <ContextMenu.Item>
+      <MixerHorizontalIcon />
+      Show props
+    </ContextMenu.Item>
+    <ContextMenu.Item>
+      <CodeIcon />
+      Show in code
+    </ContextMenu.Item>
+    <ContextMenu.Separator />
+    <ContextMenu.Item color="red">
+      <TrashIcon />
+      Remove
+    </ContextMenu.Item>
+  </ContextMenu.Content>
+);
+
+const componentContextMenu = (
+  <ContextMenu.Content>
+    <ContextMenu.Item>
+      <Pencil1Icon />
+      Edit component
+    </ContextMenu.Item>
+    <ContextMenu.Item>
+      <Pencil2Icon />
+      Manage classes
+    </ContextMenu.Item>
+    <ContextMenu.Item>
+      <MagicWandIcon />
+      Ask AI
+    </ContextMenu.Item>
+    <ContextMenu.Separator />
+    <ContextMenu.Item>
+      <OpacityIcon />
+      Show styles
+    </ContextMenu.Item>
+    <ContextMenu.Item>
+      <MixerHorizontalIcon />
+      Show props
+    </ContextMenu.Item>
+    <ContextMenu.Item>
+      <CodeIcon />
+      Show in code
+    </ContextMenu.Item>
+    <ContextMenu.Separator />
+    <ContextMenu.Item color="red">
+      <TrashIcon />
+      Remove
+    </ContextMenu.Item>
+  </ContextMenu.Content>
+);
+
+const expressionContextMenu = (
+  <ContextMenu.Content>
+    <ContextMenu.Item>
+      <Pencil1Icon />
+      Edit expression
+    </ContextMenu.Item>
+    <ContextMenu.Item>
+      <MagicWandIcon />
+      Ask AI
+    </ContextMenu.Item>
+    <ContextMenu.Separator />
+    <ContextMenu.Item>
+      <CodeIcon />
+      Show in code
+    </ContextMenu.Item>
+    <ContextMenu.Separator />
+    <ContextMenu.Item color="red">
+      <TrashIcon />
+      Remove
+    </ContextMenu.Item>
+  </ContextMenu.Content>
+);
+
+const textContextMenu = (
+  <ContextMenu.Content>
+    <ContextMenu.Item>
+      <Pencil1Icon />
+      Edit text
+    </ContextMenu.Item>
+    <ContextMenu.Item>
+      <MagicWandIcon />
+      Ask AI
+    </ContextMenu.Item>
+    <ContextMenu.Separator />
+    <ContextMenu.Item>
+      <CodeIcon />
+      Show in code
+    </ContextMenu.Item>
+    <ContextMenu.Separator />
+    <ContextMenu.Item color="red">
+      <TrashIcon />
+      Remove
+    </ContextMenu.Item>
+  </ContextMenu.Content>
+);
