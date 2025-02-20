@@ -1,22 +1,26 @@
 import { NodeApi, NodeRendererProps, Tree, TreeApi } from "react-arborist";
 import {
-  ChevronDownIcon,
-  ChevronRightIcon,
   DotIcon,
   TriangleDownIcon,
   TriangleRightIcon,
   // FileIcon,
 } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
-import { Code, IconButton, ScrollArea, TextField } from "@radix-ui/themes";
-import classNames from "classnames";
-import styles from "./source-tree.module.css";
+import {
+  Code,
+  IconButton,
+  ScrollArea,
+  TextField,
+  Tooltip,
+} from "@radix-ui/themes";
 import {
   SourceTreeData,
   sourceTreeData,
   SourceTreeNodeType,
 } from "./source-tree-data";
 import { accentColorPropDef } from "@radix-ui/themes/props";
+import classNames from "classnames";
+import styles from "./source-tree.module.css";
 
 export interface SourceTreeProps {
   className?: string;
@@ -36,9 +40,11 @@ const nodeTypeColors: Record<
 };
 
 export const SourceTree = ({ className }: SourceTreeProps) => {
-  const [tree, setTree] = useState<TreeApi<Data> | null | undefined>(null);
-  const [active, setActive] = useState<Data | null>(null);
-  const [focused, setFocused] = useState<Data | null>(null);
+  const [tree, setTree] = useState<TreeApi<SourceTreeData> | null | undefined>(
+    null
+  );
+  const [active, setActive] = useState<SourceTreeData | null>(null);
+  const [focused, setFocused] = useState<SourceTreeData | null>(null);
   const [selectedCount, setSelectedCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [count, setCount] = useState(0);
@@ -108,6 +114,16 @@ function Node({ node, style, dragHandle }: NodeRendererProps<SourceTreeData>) {
         <FolderArrow node={node} />
       </IconButton>
       {/* <Icon className={styles.icon} /> */}
+      {node.data.prop && (
+        <span>
+          <Tooltip content={node.data.propType} side="left">
+            <Code size="2" variant="ghost" color="plum">
+              {node.data.prop}
+              {": "}
+            </Code>
+          </Tooltip>
+        </span>
+      )}
       <span className={styles.text}>
         {node.isEditing ? (
           <EditingInput node={node} />

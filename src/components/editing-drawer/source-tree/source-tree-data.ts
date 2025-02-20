@@ -9,6 +9,8 @@ export type SourceTreeData = {
   value: string;
   type: SourceTreeNodeType;
   children?: SourceTreeData[];
+  prop?: string;
+  propType?: string;
 };
 
 export const sourceTreeData: SourceTreeData[] = [
@@ -55,7 +57,25 @@ export const sourceTreeData: SourceTreeData[] = [
             value: "{items.map((item) => ...)}",
             type: "expression",
             children: [
-              { id: "habitItem", value: "HabitItem", type: "component" },
+              {
+                id: "habitItemCard",
+                value: "HabitItemCard",
+                type: "component",
+                children: [
+                  {
+                    id: "habitItemLabel",
+                    value: "{item.title}",
+                    type: "expression",
+                  },
+                  {
+                    id: "habitItemStatusIndicator",
+                    value: "StatusIndicator",
+                    type: "component",
+                    prop: "status",
+                    propType: "React.ReactNode",
+                  },
+                ],
+              },
             ],
           },
         ],
