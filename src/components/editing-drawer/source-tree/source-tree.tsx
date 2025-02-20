@@ -2,20 +2,38 @@ import { NodeApi, NodeRendererProps, Tree, TreeApi } from "react-arborist";
 import {
   ChevronDownIcon,
   ChevronRightIcon,
+  DotIcon,
+  TriangleDownIcon,
+  TriangleRightIcon,
   // FileIcon,
 } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 import { Code, IconButton, ScrollArea, TextField } from "@radix-ui/themes";
 import classNames from "classnames";
 import styles from "./source-tree.module.css";
-import { SouceTreeData, souceTreeData } from "./source-tree-data";
+import {
+  SourceTreeData,
+  sourceTreeData,
+  SourceTreeNodeType,
+} from "./source-tree-data";
+import { accentColorPropDef } from "@radix-ui/themes/props";
 
 export interface SourceTreeProps {
   className?: string;
 }
 
-const sortedData = sortData(souceTreeData);
+const sortedData = sortData(sourceTreeData);
 const INDENT_STEP = 16;
+
+const nodeTypeColors: Record<
+  SourceTreeNodeType,
+  typeof accentColorPropDef.color.default | undefined
+> = {
+  element: undefined,
+  component: "indigo",
+  expression: "plum",
+  text: undefined,
+};
 
 export const SourceTree = ({ className }: SourceTreeProps) => {
   const [tree, setTree] = useState<TreeApi<Data> | null | undefined>(null);
@@ -65,7 +83,7 @@ export const SourceTree = ({ className }: SourceTreeProps) => {
   );
 };
 
-function Node({ node, style, dragHandle }: NodeRendererProps<SouceTreeData>) {
+function Node({ node, style, dragHandle }: NodeRendererProps<SourceTreeData>) {
   // const Icon = FileIcon;
   const indentSize = Number.parseFloat(`${style.paddingLeft || 0}`);
 
@@ -94,8 +112,8 @@ function Node({ node, style, dragHandle }: NodeRendererProps<SouceTreeData>) {
         {node.isEditing ? (
           <EditingInput node={node} />
         ) : (
-          <Code size="2" variant="ghost">
-            {node.data.name}
+          <Code size="2" variant="ghost" color={nodeTypeColors[node.data.type]}>
+            {node.data.value}
           </Code>
         )}
       </span>
@@ -103,7 +121,7 @@ function Node({ node, style, dragHandle }: NodeRendererProps<SouceTreeData>) {
   );
 }
 
-function EditingInput({ node }: { node: NodeApi<SouceTreeData> }) {
+function EditingInput({ node }: { node: NodeApi<SourceTreeData> }) {
   return (
     <TextField.Root
       className={styles.nameInput}
@@ -111,7 +129,7 @@ function EditingInput({ node }: { node: NodeApi<SouceTreeData> }) {
       size="1"
       autoFocus
       name="name"
-      defaultValue={node.data.name}
+      defaultValue={node.data.value}
       onFocus={(e) => e.currentTarget.select()}
       onBlur={() => node.reset()}
       onKeyDown={(e) => {
@@ -122,8 +140,8 @@ function EditingInput({ node }: { node: NodeApi<SouceTreeData> }) {
   );
 }
 
-function sortData(data: SouceTreeData[]) {
-  function sortIt(data: SouceTreeData[]) {
+function sortData(data: SourceTreeData[]) {
+  function sortIt(data: SourceTreeData[]) {
     // data.sort((a, b) => (a.name < b.name ? -1 : 1));
     // data.forEach((d) => {
     //   if (d.children) sortIt(d.children);
@@ -133,17 +151,18 @@ function sortData(data: SouceTreeData[]) {
   return sortIt(data);
 }
 
-function FolderArrow({ node }: { node: NodeApi<SouceTreeData> }) {
+function FolderArrow({ node }: { node: NodeApi<SourceTreeData> }) {
   return (
     <span className={styles.arrow}>
       {node.isInternal ? (
         node.isOpen ? (
-          <ChevronDownIcon />
+          <TriangleDownIcon />
         ) : (
-          <ChevronRightIcon />
+          <TriangleRightIcon />
         )
       ) : (
-        <div className={styles.emptyArrow} />
+        // <div className={styles.emptyArrow} />
+        <DotIcon />
       )}
     </span>
   );

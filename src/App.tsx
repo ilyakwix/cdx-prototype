@@ -25,8 +25,10 @@ export type EditorMode = "preview" | "edit" | "code";
 export type DrawerTreeTabs = "elements" | "source";
 export type DrawerSettingsTabs = "styles" | "computed" | "props";
 
+const DEFAULT_MODE: EditorMode = "edit";
+
 function App() {
-  const [mode, setMode] = useState<EditorMode>("preview");
+  const [mode, setMode] = useState<EditorMode>(DEFAULT_MODE);
   const [showDrawer, setShowDrawer] = useState(true);
   const showStage = mode === "preview" || mode === "edit";
 

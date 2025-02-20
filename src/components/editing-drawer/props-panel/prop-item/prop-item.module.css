@@ -1,0 +1,9 @@
+.root {
+  /* Reset text styles */
+  --code-variant-font-size-adjust: var(--code-font-size-adjust);
+  font-family: var(--code-font-family);
+  font-size: calc(var(--font-size-2) * var(--code-variant-font-size-adjust));
+  line-height: var(--line-height-2);
+
+  padding: var(--space-1) var(--space-3);
+}

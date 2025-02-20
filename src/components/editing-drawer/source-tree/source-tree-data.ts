@@ -1,44 +1,62 @@
-export type SouceTreeData = {
+export type SourceTreeNodeType =
+  | "element"
+  | "component"
+  | "expression"
+  | "text";
+
+export type SourceTreeData = {
   id: string;
-  name: string;
-  children?: SouceTreeData[];
+  value: string;
+  type: SourceTreeNodeType;
+  children?: SourceTreeData[];
 };
 
-export const souceTreeData = [
+export const sourceTreeData: SourceTreeData[] = [
   {
     id: "root",
-    name: "div",
+    value: "div",
+    type: "element",
     children: [
       {
         id: "header",
-        name: "header",
+        value: "header",
+        type: "element",
         children: [
           {
             id: "mainHeading",
-            name: "h1",
-            children: [{ id: "mainHeadingText", name: "Daily Habits" }],
+            value: "h1",
+            type: "element",
+            children: [
+              { id: "mainHeadingText", value: "Daily Habits", type: "text" },
+            ],
           },
           {
             id: "subtitle",
-            name: "span",
+            value: "span",
+            type: "element",
             children: [
-              { id: "subtitleText", name: "Sunday, February 16, 2025" },
+              { id: "subtitleText", value: "{today}", type: "expression" },
             ],
           },
         ],
       },
       {
         id: "dailyProgress",
-        name: "ProgressCard",
+        value: "ProgressCard",
+        type: "component",
       },
       {
         id: "listOfHabits",
-        name: "HabitsList",
+        value: "HabitsList",
+        type: "component",
         children: [
           {
             id: "HabitsListMap",
-            name: "{items.map(item => (...))}",
-            children: [{ id: "habitItem", name: "HabitItem" }],
+            value: "{items.map((item) => ...)}",
+            type: "expression",
+            children: [
+              { id: "habitItem", value: "HabitItem", type: "component" },
+            ],
           },
         ],
       },

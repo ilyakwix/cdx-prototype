@@ -177,6 +177,10 @@
   outline: none;
 }
 
+.row:hover .node:not(:global(.isSelected)) {
+  background-color: var(--gray-a3);
+}
+
 .row:focus .node {
 }
 

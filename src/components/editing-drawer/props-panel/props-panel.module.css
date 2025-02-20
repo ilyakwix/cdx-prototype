@@ -1,3 +1,32 @@
 .root {
-  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-1);
+  padding-top: var(--space-1);
+  padding-bottom: var(--space-6);
+}
+
+.prop {
+  display: flex;
+  align-items: center;
+  height: var(--space-5);
+  padding: var(--space-1) var(--space-3);
+}
+
+.propName {
+}
+
+.propName:after {
+  content: ":";
+  margin-right: 1ch;
+}
+
+.propValue {
+  width: 100%;
+}
+
+.footer {
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+  box-shadow: 0 -1px 0 var(--border-color);
 }
