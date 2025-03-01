@@ -1,0 +1,15 @@
+.root {
+}
+
+.theme:global(.radix-themes) {
+  --default-font-family: var(--code-font-family);
+}
+
+.definitionButton {
+  --button-ghost-padding-x: var(--space-1);
+  --button-ghost-padding-y: 0;
+}
+
+.definitionInput {
+  --text-field-height: var(--space-4);
+}

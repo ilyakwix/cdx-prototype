@@ -25,6 +25,8 @@ const settingsTabs: TabProps<DrawerSettingsTabs>[] = [
   { id: "props", label: "Props" },
 ];
 
+const DEFAULT_SETTINGS_TAB: DrawerSettingsTabs = "styles";
+
 export interface EditingDrawerProps {
   className?: string;
 }
@@ -70,7 +72,10 @@ export const EditingDrawer = ({ className }: EditingDrawerProps) => {
             </Tabs.Root>
           </Allotment.Pane>
           <Allotment.Pane minSize={250} preferredSize={360}>
-            <Tabs.Root defaultValue="props" className={styles.tabs}>
+            <Tabs.Root
+              defaultValue={DEFAULT_SETTINGS_TAB}
+              className={styles.tabs}
+            >
               <Allotment vertical className={styles.treePane} separator={false}>
                 <Allotment.Pane minSize={32} maxSize={32}>
                   <Tabs.List size="1">

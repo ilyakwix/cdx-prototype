@@ -1,0 +1,26 @@
+.root {
+  /* width: 300px; */
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.input {
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-2);
+  letter-spacing: var(--letter-spacing-2);
+}
+
+.suggestion {
+  display: inline-block;
+  padding: var(--text-field-padding);
+  font-size: var(--font-size-2);
+  line-height: var(--line-height-2);
+  letter-spacing: var(--letter-spacing-2);
+}

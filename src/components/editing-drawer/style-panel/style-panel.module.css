@@ -1,3 +1,23 @@
 .root {
-  padding: var(--space-2);
+  /* padding: var(--space-2); */
+}
+
+.rule {
+}
+
+.theme:global(.radix-themes) {
+  --default-font-family: var(--code-font-family);
+}
+
+.selector {
+  background-color: var(--gray-a2);
+  padding: var(--space-1) var(--space-2);
+}
+
+.declaration {
+  height: var(--space-5);
+}
+
+.valueInput {
+  width: 100%;
 }
